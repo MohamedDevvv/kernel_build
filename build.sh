@@ -32,7 +32,7 @@ installDependencies
 
 ## clone Kernel
 echo "Cloning Kernel"
-git clone https://github.com/MohamedDevvv/android_kernel_lenovo_msm8937 -b hybris-18.1
+git clone https://github.com/MohamedDevvv/android_kernel_lenovo_msm8937 -b hybris-18.1 kernel
 
 ##------------------------------------------------------##
 ##----------Basic Informations, COMPULSORY-------- The defult directory where the kernel should be placed
