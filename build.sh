@@ -32,24 +32,22 @@ installDependencies
 
 ## clone Kernel
 echo "Cloning Kernel"
-git clone https://github.com/divyam234/android_kernel_asus_sdm660 -b eleven kernel
+git clone https://github.com/MohamedDevvv/android_kernel_lenovo_msm8937 -b hybris-18.1
 
 ##------------------------------------------------------##
-##----------Basic Informations, COMPULSORY--------------##
-
-# The defult directory where the kernel should be placed
+##----------Basic Informations, COMPULSORY-------- The defult directory where the kernel should be placed
 KERNEL_DIR=$(pwd)/kernel
 cd $KERNEL_DIR
 
 # The name of the device for which the kernel is built
-MODEL="Asus Zenfone Max Pro M2"
+MODEL="Lenovo k6 note"
 
 # The codename of the device
-DEVICE="X01BD"
+DEVICE="karatep"
 
 # The defconfig which should be used. Get it from config.gz from
 # your device or check source
-DEFCONFIG=X01BD_defconfig
+DEFCONFIG=karatep_defconfig
 
 # Show manufacturer info
 MANUFACTURERINFO="ASUSTek Computer Inc."
@@ -62,7 +60,7 @@ BUILD_TYPE="Release"
 
 # Specify compiler.
 # 'clang' or 'clangxgcc' or 'gcc'
-COMPILER=clang
+COMPILER=gcc
 
 # Kernel is LTO
 LTO=0
@@ -77,7 +75,7 @@ INCREMENTAL=0
 TOKEN=$TELEGRAM_TOKEN
 
 # Push ZIP to Telegram. 1 is YES | 0 is NO(default)
-PTTG=1
+PTTG=0
 	if [ $PTTG = 1 ]
 	then
 		# Set Telegram Chat ID
