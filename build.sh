@@ -137,7 +137,7 @@ DATE=$(TZ=Asia/Kolkata date +"%Y-%m-%d")
 	elif [ $COMPILER = "gcc" ]
 	then
 		msg "|| Cloning GCC 12.0.0 Bare Metal ||"
-		git clone https://github.com/mvaisakh/gcc-arm64.git $KERNEL_DIR/gcc64 --depth=1
+		git clone  https://github.com/crossfire77/linaro-4.8 $KERNEL_DIR/gcc64 --depth=1
         git clone https://github.com/mvaisakh/gcc-arm.git $KERNEL_DIR/gcc32 --depth=1
 
 	elif [ $COMPILER = "clangxgcc" ]
@@ -175,7 +175,7 @@ DATE=$(TZ=Asia/Kolkata date +"%Y-%m-%d")
 # Function to replace defconfig versioning
 setversioning() {
     # For staging branch
-    KERNELNAME="Redux-$LINUXVER-$VARIANT-X01BD-$(TZ=Asia/Kolkata date +"%Y-%m-%d-%s")"
+    KERNELNAME="Redux-$LINUXVER-$VARIANT-karatep-$(TZ=Asia/Kolkata date +"%Y-%m-%d-%s")"
     # Export our new localversion and zipnames
     export KERNELNAME
     export ZIPNAME="$KERNELNAME.zip"
@@ -198,7 +198,7 @@ exports() {
 		PATH=$TC_DIR/bin:$GCC64_DIR/bin:$GCC32_DIR/bin:/usr/bin:$PATH
 	elif [ $COMPILER = "gcc" ]
 	then
-		KBUILD_COMPILER_STRING=$("$GCC64_DIR"/bin/aarch64-elf-gcc --version | head -n 1)
+		KBUILD_COMPILER_STR=("$GCC64_DIR"/bin/arm-linux-androideabi-4.6 --version | head -n 1)
 		PATH=$GCC64_DIR/bin/:$GCC32_DIR/bin/:/usr/bin:$PATH
 	fi
 
@@ -217,7 +217,7 @@ exports() {
 
 	if [ $COMPILER = "gcc" ];then
 
-    if [ -e $GCC64_DIR/bin/aarch64-elf-gcc ];then
+    if [ -e $GCC64_DIR/bin/aarch ];then
         gcc64Type="$($GCC64_DIR/bin/aarch64-elf-gcc --version | head -n 1)"
     else
         cd $GCC64_DIR
