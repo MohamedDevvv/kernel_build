@@ -137,8 +137,8 @@ DATE=$(TZ=Asia/Kolkata date +"%Y-%m-%d")
 	elif [ $COMPILER = "gcc" ]
 	then
 		msg "|| Cloning GCC 12.0.0 Bare Metal ||"
-		git clone  https://github.com/crossfire77/linaro-4.8 $KERNEL_DIR/gcc64 --depth=1
-        git clone https://github.com/mvaisakh/gcc-arm.git $KERNEL_DIR/gcc32 --depth=1
+		git clone  https://github.com/LineageOS/android_prebuilts_gcc_linux-x86_aarch64_aarch64-linux-android-4.9 $KERNEL_DIR/gcc64 --depth=1
+                git clone https://github.com/LineageOS/android_prebuilts_gcc_linux-x86_arm_arm-linux-androideabi-4.9 $KERNEL_DIR/gcc32 --depth=1
 
 	elif [ $COMPILER = "clangxgcc" ]
 	then
@@ -198,7 +198,7 @@ exports() {
 		PATH=$TC_DIR/bin:$GCC64_DIR/bin:$GCC32_DIR/bin:/usr/bin:$PATH
 	elif [ $COMPILER = "gcc" ]
 	then
-		KBUILD_COMPILER_STRING=$("$GCC64_DIR"/bin/arm-linux-androideabi- --version | head -n 1)
+		KBUILD_COMPILER_STRING=$("$GCC64_DIR"/bin/aarch64-linux-android- --version | head -n 1)
 		PATH=$GCC64_DIR/bin/:$GCC32_DIR/bin/:/usr/bin:$PATH
 	fi
 
@@ -218,7 +218,7 @@ exports() {
 	if [ $COMPILER = "gcc" ];then
 
     if [ -e $GCC64_DIR/bin/aarch ];then
-        gcc64Type="$($GCC64_DIR/bin/arm-linux-androideabi- --version | head -n 1)"
+        gcc64Type="$($GCC64_DIR/bin/aarch64-linux-android- --version | head -n 1)"
     else
         cd $GCC64_DIR
         gcc64Type=$(git log --pretty=format:'%h: %s' -n1)
@@ -336,7 +336,7 @@ build_kernel() {
 	if [ $COMPILER = "clang" ]
 	then
 		make -j"$PROCS" O=out \
-				CROSS_COMPILE=arm-linux-androideabi- \
+				CROSS_COMPILE=aarch64-linux-android- \
 				CROSS_COMPILE_ARM32=arm-linux-androideabi- \
 				CC=clang \
 				AR=llvm-ar \
@@ -347,10 +347,10 @@ build_kernel() {
 	then
 		make -j"$PROCS" O=out \
 				CROSS_COMPILE_ARM32=arm-linux-androideabi- \
-				CROSS_COMPILE=arm-linux-androideabi- \
-				AR=arm-linux-androideabi- \
-				OBJDUMP=arm-eabi-objdump \
-				STRIP=arm-eabi-strip
+				CROSS_COMPILE=aarch64-linux-android- \
+				AR=aarch64-linux-android-ar \
+				OBJDUMP=aarch64-linux-android-objdump \
+				STRIP=aarch64-linux-android-strip
 
 	elif [ $COMPILER = "clangxgcc" ]
 	then
