@@ -184,7 +184,7 @@ setversioning() {
 ##--------------------------------------------------------------##
 
 exports() {
-	export KBUILD_BUILD_USER="Redux"
+	export KBUILD_BUILD_USER="Mohamed"
 	export ARCH=arm64
 	export SUBARCH=arm64
 
@@ -218,14 +218,14 @@ exports() {
 	if [ $COMPILER = "gcc" ];then
 
     if [ -e $GCC64_DIR/bin/aarch ];then
-        gcc64Type="$($GCC64_DIR/bin/aarch64-elf-gcc --version | head -n 1)"
+        gcc64Type="$($GCC64_DIR/bin/arm-linux-androideabi-4.6 --version | head -n 1)"
     else
         cd $GCC64_DIR
         gcc64Type=$(git log --pretty=format:'%h: %s' -n1)
         cd $KERNEL_DIR
     fi
     if [ -e $GCC32_DIR/bin/arm-eabi-gcc ];then
-        gcc32Type="$($GCC32_DIR/bin/arm-eabi-gcc --version | head -n 1)"
+        gcc32Type="$($GCC32_DIR/bin/arm-linux-androideabi-4.6 --version | head -n 1)"
     else
         cd $GCC32_DIR
         gcc32Type=$(git log --pretty=format:'%h: %s' -n1)
@@ -336,8 +336,8 @@ build_kernel() {
 	if [ $COMPILER = "clang" ]
 	then
 		make -j"$PROCS" O=out \
-				CROSS_COMPILE=aarch64-linux-gnu- \
-				CROSS_COMPILE_ARM32=arm-linux-gnueabi- \
+				CROSS_COMPILE=arm-linux-androideabi-4.6 \
+				CROSS_COMPILE_ARM32=arm-linux-androideabi-4.6 \
 				CC=clang \
 				AR=llvm-ar \
 				OBJDUMP=llvm-objdump \
@@ -346,11 +346,11 @@ build_kernel() {
 	elif [ $COMPILER = "gcc" ]
 	then
 		make -j"$PROCS" O=out \
-				CROSS_COMPILE_ARM32=arm-eabi- \
-				CROSS_COMPILE=aarch64-elf- \
-				AR=aarch64-elf-ar \
-				OBJDUMP=aarch64-elf-objdump \
-				STRIP=aarch64-elf-strip
+				CROSS_COMPILE_ARM32=arm-linux-androideabi-4.6- \
+				CROSS_COMPILE=arm-linux-androideabi-4.6 \
+				AR=arm-linux-androideabi-4.6 \
+				OBJDUMP=arm-eabi-objdump \
+				STRIP=arm-eabi-strip
 
 	elif [ $COMPILER = "clangxgcc" ]
 	then
