@@ -19,18 +19,18 @@ jobs:
 
       - name: list fils
         run: |
-         ls kernel/arch/arm64/boot
+         ls kernel/arch/arm64/boot/dts
       
       - name: Archive build output and send to tg
         run: |
           COMMIT_TITLE=$(echo "${{ github.event.head_commit.message }}" | head -n 1)
           echo "Commit Title: $COMMIT_TITLE"     
             mkdir -p output
-          cp -r kernel/arch/arm64/boot/* output/             
+          cp -r kernel/arch/arm64/boot/dts/* output/             
           sudo apt install curl
-          curl -F "chat_id=1866453320" -F "document=@arch/arm64/boot/Image" "https://api.telegram.org/bot7854231397:AAHWtx4hS9ow-Lntr2-5TMJJq6KHSAxfd9o/sendDocument"
-          curl -F "chat_id=1866453320" -F "document=@arch/arm64/boot/Image.gz" "https://api.telegram.org/bot7854231397:AAHWtx4hS9ow-Lntr2-5TMJJq6KHSAxfd9o/sendDocument"
-          cp kernel/arch/arm64/boot/Image kernel/anykernel/
+          curl -F "chat_id=1866453320" -F "document=@arch/arm64/boot/dts/Image" "https://api.telegram.org/bot7854231397:AAHWtx4hS9ow-Lntr2-5TMJJq6KHSAxfd9o/sendDocument"
+          curl -F "chat_id=1866453320" -F "document=@arch/arm64/boot/dts/Image.gz" "https://api.telegram.org/bot7854231397:AAHWtx4hS9ow-Lntr2-5TMJJq6KHSAxfd9o/sendDocument"
+          cp kernel/arch/arm64/boot/dts/Image kernel/anykernel/
           cd anykernel; zip -9 -r ../output/karatep_kernel_TESTING-$COMMIT_TITLE-$(date +%Y-%m-%d).zip ./* ; cd ..
           curl -F "chat_id=1866453320" -F "document=@output/karatep_kernel_TESTING-$COMMIT_TITLE-$(date +%Y-%m-%d).zip" "https://api.telegram.org/bot7854231397:AAHWtx4hS9ow-Lntr2-5TMJJq6KHSAxfd9o/sendDocument"
           curl -F "chat_id=-1002124013929" -F "document=@output/karatep_kernel_TESTING-$COMMIT_TITLE-$(date +%Y-%m-%d).zip"  -F caption="$COMMIT_TITLE" "https://api.telegram.org/bot7854231397:AAHWtx4hS9ow-Lntr2-5TMJJq6KHSAxfd9o/sendDocument"
