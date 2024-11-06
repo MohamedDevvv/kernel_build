@@ -26,7 +26,7 @@ jobs:
 
       - name: Pull kernel source
         run: |
-          git clone --depth=1 ${{ env.KERNEL_SOURCE }} -b ${{ env.KERNEL_SOURCE_BRANCH }} kernel-source
+          git clone --depth=1 ${{ env.KERNEL_SOURCE }} kernel-source
 
       - name: Build kernel
         run: |
