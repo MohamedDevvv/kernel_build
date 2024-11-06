@@ -187,6 +187,8 @@ exports() {
 	export KBUILD_BUILD_USER="Mohamed"
 	export ARCH=arm64
 	export SUBARCH=arm64
+        export CONFIG_NO_ERROR_ON_MISMATCH=y
+	export CONFIG_DEBUG_SECTION_MISMATCH=y
 
 	if [ $COMPILER = "clang" ]
 	then
