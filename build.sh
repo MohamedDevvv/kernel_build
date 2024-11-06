@@ -198,7 +198,7 @@ exports() {
 		PATH=$TC_DIR/bin:$GCC64_DIR/bin:$GCC32_DIR/bin:/usr/bin:$PATH
 	elif [ $COMPILER = "gcc" ]
 	then
-		KBUILD_COMPILER_STR=("$GCC64_DIR"/bin/arm-linux-androideabi-4.6 --version | head -n 1)
+		KBUILD_COMPILER_STRING=$("$GCC64_DIR"/bin/arm-linux-androideabi-4.6 --version | head -n 1)
 		PATH=$GCC64_DIR/bin/:$GCC32_DIR/bin/:/usr/bin:$PATH
 	fi
 
