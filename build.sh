@@ -198,7 +198,7 @@ exports() {
 		PATH=$TC_DIR/bin:$GCC64_DIR/bin:$GCC32_DIR/bin:/usr/bin:$PATH
 	elif [ $COMPILER = "gcc" ]
 	then
-		KBUILD_COMPILER_STRING=$("$GCC64_DIR"/bin/arm-linux-androideabi-gcc --version | head -n 1)
+		KBUILD_COMPILER_STRING=$("$GCC64_DIR"/bin/arm-linux-androideabi- --version | head -n 1)
 		PATH=$GCC64_DIR/bin/:$GCC32_DIR/bin/:/usr/bin:$PATH
 	fi
 
@@ -218,14 +218,14 @@ exports() {
 	if [ $COMPILER = "gcc" ];then
 
     if [ -e $GCC64_DIR/bin/aarch ];then
-        gcc64Type="$($GCC64_DIR/bin/arm-linux-androideabi-gcc --version | head -n 1)"
+        gcc64Type="$($GCC64_DIR/bin/arm-linux-androideabi- --version | head -n 1)"
     else
         cd $GCC64_DIR
         gcc64Type=$(git log --pretty=format:'%h: %s' -n1)
         cd $KERNEL_DIR
     fi
     if [ -e $GCC32_DIR/bin/arm-eabi-gcc ];then
-        gcc32Type="$($GCC32_DIR/bin/arm-linux-androideabi-gcc --version | head -n 1)"
+        gcc32Type="$($GCC32_DIR/bin/arm-linux-androideabi- --version | head -n 1)"
     else
         cd $GCC32_DIR
         gcc32Type=$(git log --pretty=format:'%h: %s' -n1)
@@ -336,8 +336,8 @@ build_kernel() {
 	if [ $COMPILER = "clang" ]
 	then
 		make -j"$PROCS" O=out \
-				CROSS_COMPILE=arm-linux-androideabi-gcc \
-				CROSS_COMPILE_ARM32=arm-linux-androideabi-gcc \
+				CROSS_COMPILE=arm-linux-androideabi- \
+				CROSS_COMPILE_ARM32=arm-linux-androideabi- \
 				CC=clang \
 				AR=llvm-ar \
 				OBJDUMP=llvm-objdump \
@@ -346,9 +346,9 @@ build_kernel() {
 	elif [ $COMPILER = "gcc" ]
 	then
 		make -j"$PROCS" O=out \
-				CROSS_COMPILE_ARM32=arm-linux-androideabi-gcc \
-				CROSS_COMPILE=arm-linux-androideabi-gcc \
-				AR=arm-linux-androideabi-gcc \
+				CROSS_COMPILE_ARM32=arm-linux-androideabi- \
+				CROSS_COMPILE=arm-linux-androideabi- \
+				AR=arm-linux-androideabi- \
 				OBJDUMP=arm-eabi-objdump \
 				STRIP=arm-eabi-strip
 
