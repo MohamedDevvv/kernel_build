@@ -22,10 +22,17 @@ jobs:
       - name: list fils
         run: |
          ls kernel/out/arch/arm64/boot
-      
+
+      - name: Release build
+        uses: appleboy/telegram-action@master
+        with:
+            to: 7448911714
+            token: 7777656115:AAFrFOMWANR1yE069wHK1czDrM1zzqUFC-k
+            message: Kernel is built!, took 10 seconds.
+            document: ${{ steps.build.outputs.outfile }}
+
       - name: Archive build output and send to tg
         run: |
-          mkdir
           git clone --depth=1 ${{ env.ANYKERNEL_SOURCE }} -b ${{ env.ANYKERNEL_SOURCE_BRANCH }} AnyKernel3 && rm -rf AnyKernel3/.git AnyKernel3/.github AnyKernel3/LICENSE AnyKernel3/README.md
           COMMIT_TITLE=$(echo "${{ github.event.head_commit.message }}" | head -n 1)
           echo "Commit Title: $COMMIT_TITLE"     
@@ -44,16 +51,6 @@ jobs:
           cp release.tar.gz output/
           curl -F "chat_id=7448911714" -F "document=@output/release.tar.gz" "https://api.telegram.org/bot7854231397:AAHWtx4hS9ow-Lntr2-5TMJJq6KHSAxfd9o/sendDocument"
 
-
-        
       - name: list fils x2
         run: |
          ls kernel/
-
-      - name: Release build
-        uses: appleboy/telegram-action@master
-        with:
-            to: 7448911714
-            token: 7777656115:AAFrFOMWANR1yE069wHK1czDrM1zzqUFC-k
-            message: Kernel is built!, took 10 seconds.
-            document: ${{ steps.build.outputs.outfile }}
