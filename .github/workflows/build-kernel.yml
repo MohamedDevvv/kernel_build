@@ -28,7 +28,7 @@ jobs:
         with:
             to: 7448911714
             token: 7777656115:AAFrFOMWANR1yE069wHK1czDrM1zzqUFC-k
-            message: Kernel is built!, took 10 minute.
+            message: Kernel is built!, ${{ steps.build.outputs.elapsed_time }} seconds.
             document: ${{ steps.build.outputs.outfile }}
 
       - name: Archive build output and send to tg
