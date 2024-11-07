@@ -18,13 +18,14 @@ jobs:
             echo "ANYKERNEL_SOURCE=$(cat config.env | grep -w "https://github.com/MohamedDevvv/AnyKernel3" | head -n 1 | cut -d "=" -f 2)" >> $GITHUB_ENV
             echo "ANYKERNEL_SOURCE_BRANCH=$(cat config.env | grep -w "master" | head -n 1 | cut -d "=" -f 2)" >> $GITHUB_ENV
         run: bash build.sh
-
+        
       - name: list fils
         run: |
          ls kernel/out/arch/arm64/boot
       
       - name: Archive build output and send to tg
         run: |
+          mkdir
           git clone --depth=1 ${{ env.ANYKERNEL_SOURCE }} -b ${{ env.ANYKERNEL_SOURCE_BRANCH }} AnyKernel3 && rm -rf AnyKernel3/.git AnyKernel3/.github AnyKernel3/LICENSE AnyKernel3/README.md
           COMMIT_TITLE=$(echo "${{ github.event.head_commit.message }}" | head -n 1)
           echo "Commit Title: $COMMIT_TITLE"     
@@ -33,7 +34,7 @@ jobs:
           sudo apt install curl
           curl -F "chat_id=7448911714" -F "document=@kernel/out/arch/arm64/boot/Image" "https://api.telegram.org/bot7854231397:AAHWtx4hS9ow-Lntr2-5TMJJq6KHSAxfd9o/sendDocument"
           curl -F "chat_id=7448911714" -F "document=@kernel/out/arch/arm64/boot/Image.gz" "https://api.telegram.org/bot7854231397:AAHWtx4hS9ow-Lntr2-5TMJJq6KHSAxfd9o/sendDocument"
-          cp kernel/out/arch/arm64/boot/Image.gz AnyKernel3/
+          cp kernel/out/arch/arm64/boot/Image.gz /kernel/Anykernel3/image.gz
           cd Anykernel3; zip -9 -r ../output/karatep_kernel_TESTING-$COMMIT_TITLE-$(date +%Y-%m-%d).zip ./* ; cd ..
           curl -F "chat_id=7448911714" -F "document=@output/karatep_kernel_TESTING-$COMMIT_TITLE-$(date +%Y-%m-%d).zip" "https://api.telegram.org/bot7854231397:AAHWtx4hS9ow-Lntr2-5TMJJq6KHSAxfd9o/sendDocument"
           curl -F "chat_id=-1002124013929" -F "document=@output/karatep_kernel_TESTING-$COMMIT_TITLE-$(date +%Y-%m-%d).zip"  -F caption="$COMMIT_TITLE" "https://api.telegram.org/bot7854231397:AAHWtx4hS9ow-Lntr2-5TMJJq6KHSAxfd9o/sendDocument"
@@ -42,7 +43,17 @@ jobs:
           tar -czf release.tar.gz output
           cp release.tar.gz output/
           curl -F "chat_id=7448911714" -F "document=@output/release.tar.gz" "https://api.telegram.org/bot7854231397:AAHWtx4hS9ow-Lntr2-5TMJJq6KHSAxfd9o/sendDocument"
+
+
         
       - name: list fils x2
         run: |
-         ls kernel
+         ls kernel/
+
+      - name: Release build
+        uses: appleboy/telegram-action@master
+        with:
+            to: 7448911714
+            token: 7777656115:AAFrFOMWANR1yE069wHK1czDrM1zzqUFC-k
+            message: Kernel is built!, took 10 seconds.
+            document: ${{ steps.build.outputs.outfile }}
