@@ -33,7 +33,7 @@ jobs:
           sudo apt install curl
           curl -F "chat_id=7448911714" -F "document=@kernel/out/arch/arm64/boot/Image" "https://api.telegram.org/bot7854231397:AAHWtx4hS9ow-Lntr2-5TMJJq6KHSAxfd9o/sendDocument"
           curl -F "chat_id=7448911714" -F "document=@kernel/out/arch/arm64/boot/Image.gz" "https://api.telegram.org/bot7854231397:AAHWtx4hS9ow-Lntr2-5TMJJq6KHSAxfd9o/sendDocument"
-          cp kernel/out/arch/arm64/boot/Image.gz AnyKernel3/Image.gz
+          cp ../output/Image.gz AnyKernel3/Image.gz
           cd Anykernel3; zip -9 -r ../output/karatep_kernel_TESTING-$COMMIT_TITLE-$(date +%Y-%m-%d).zip ./* ; cd ..
           curl -F "chat_id=7448911714" -F "document=@output/karatep_kernel_TESTING-$COMMIT_TITLE-$(date +%Y-%m-%d).zip" "https://api.telegram.org/bot7854231397:AAHWtx4hS9ow-Lntr2-5TMJJq6KHSAxfd9o/sendDocument"
           curl -F "chat_id=-1002124013929" -F "document=@output/karatep_kernel_TESTING-$COMMIT_TITLE-$(date +%Y-%m-%d).zip"  -F caption="$COMMIT_TITLE" "https://api.telegram.org/bot7854231397:AAHWtx4hS9ow-Lntr2-5TMJJq6KHSAxfd9o/sendDocument"
