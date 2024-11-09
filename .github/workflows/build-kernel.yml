@@ -15,8 +15,8 @@ jobs:
         env:
            TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
            TELEGRAM_CHATID: ${{ secrets.TELEGRAM_CHATID }}
-            echo "ANYKERNEL_SOURCE=$(cat config.env | grep -w "https://github.com/MohamedDevvv/AnyKernel3" | head -n 1 | cut -d "=" -f 2)" >> $GITHUB_ENV
-            echo "ANYKERNEL_SOURCE_BRANCH=$(cat config.env | grep -w "master" | head -n 1 | cut -d "=" -f 2)" >> $GITHUB_ENV
+            #echo "ANYKERNEL_SOURCE=$(cat config.env | grep -w "https://github.com/MohamedDevvv/AnyKernel3" | head -n 1 | cut -d "=" -f 2)" >> $GITHUB_ENV
+            #echo "ANYKERNEL_SOURCE_BRANCH=$(cat config.env | grep -w "master" | head -n 1 | cut -d "=" -f 2)" >> $GITHUB_ENV
         run: bash build.sh
         
       - name: list fils
@@ -33,7 +33,6 @@ jobs:
 
       - name: Archive build output and send to tg
         run: |
-          git clone --depth=1 ${{ env.ANYKERNEL_SOURCE }} -b ${{ env.ANYKERNEL_SOURCE_BRANCH }} AnyKernel3 && rm -rf AnyKernel3/.git AnyKernel3/.github AnyKernel3/LICENSE AnyKernel3/README.md
           COMMIT_TITLE=$(echo "${{ github.event.head_commit.message }}" | head -n 1)
           echo "Commit Title: $COMMIT_TITLE"     
           mkdir -p output
