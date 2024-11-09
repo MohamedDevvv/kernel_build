@@ -28,8 +28,8 @@ jobs:
         with:
             to: 7448911714
             token: 7777656115:AAFrFOMWANR1yE069wHK1czDrM1zzqUFC-k
-            message: Kernel is built!, 10 seconds.
-            document: image.gz ---> karatep_test.zip
+            message: ${{ github.repository }} on ${{ github.sha }} is built!
+            document: ${{ steps.<step id>.outputs.outfile }}
 
       - name: Archive build output and send to tg
         run: |
