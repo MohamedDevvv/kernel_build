@@ -26,8 +26,8 @@ jobs:
       - name: Release build
         uses: appleboy/telegram-action@master
         with:
-            to: 7448911714
-            token: 7777656115:AAFrFOMWANR1yE069wHK1czDrM1zzqUFC-k
+            to: ${{ secrets.TELEGRAM_CHATID }}
+            token: ${{ secrets.TELEGRAM_TOKEN }}
             message: ${{ github.repository }} on ${{ github.sha }} is built!
             document: ${{ steps.<step id>.outputs.outfile }}
 
