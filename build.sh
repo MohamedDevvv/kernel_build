@@ -75,7 +75,7 @@ INCREMENTAL=0
 TOKEN=$TELEGRAM_TOKEN
 
 # Push ZIP to Telegram. 1 is YES | 0 is NO(default)
-PTTG=0
+PTTG=1
 	if [ $PTTG = 1 ]
 	then
 		# Set Telegram Chat ID
