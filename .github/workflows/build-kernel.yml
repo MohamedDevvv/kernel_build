@@ -29,7 +29,7 @@ jobs:
             to: ${{ secrets.TELEGRAM_CHATID }}
             token: ${{ secrets.TELEGRAM_TOKEN }}
             message: ${{ github.repository }} on ${{ github.sha }} is built!
-            document: ${{ steps.<step id>.outputs.outfile }}
+            document: ${{ steps.build.outputs.outfile }}
 
       - name: Archive build output and send to tg
         run: |
