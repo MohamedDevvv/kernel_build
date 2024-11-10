@@ -349,7 +349,7 @@ build_kernel() {
 	then
 		make -j"$PROCS" O=out \
 				CROSS_COMPILE_ARM32=arm-linux-androideabi- \
-				CROSS_COMPILE=aarch64-linux-android- \
+				CROSS_COMPILE=aarch64-linux-android- 2>&1 | tee log.txt \
 				AR=aarch64-linux-android-ar \
 				OBJDUMP=aarch64-linux-android-objdump \
 				STRIP=aarch64-linux-android-strip
@@ -408,6 +408,7 @@ build_kernel() {
 gen_zip() {
 	msg "|| Zipping into a flashable zip ||"
 	mv "$KERNEL_DIR"/out/arch/arm64/boot/Image.gz-dtb $AK_DIR/Image.gz-dtb
+        mv "$KERNEL_DIR"log.txt $AK_DIR/log.txt
 	if [ $BUILD_DTBO = 1 ]
 	then
 		mv "$KERNEL_DIR"/out/arch/arm64/boot/dtbo.img $AK_DIR/dtbo.img
