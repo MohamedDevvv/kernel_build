@@ -246,6 +246,8 @@ exports() {
 tg_post_msg() {
 	curl -s -X POST "$BOT_MSG_URL" -d chat_id="$CHATID" \
 	-d "disable_web_page_preview=true" \
+        -d sticker="CAACAgIAAxkBAAED3JViAplqY4fom_JEexpe31DcwVZ4ogAC1BAAAiHvsEs7bOVKQsl_OiME" \
+        -d text="Build throw an error(s)"
 	-d "parse_mode=html" \
 	-d text="$1"
 
@@ -395,6 +397,7 @@ build_kernel() {
 <b>Build Date: </b><code>$DATE</code>
 <b>Kernel Name: </b><code>Redux-$VARIANT-$DEVICE</code>
 <b>Linux Tag Version: </b><code>$LINUXVER</code>
+*Last Commit*: [${COMMIT_HASH}](${REPO}/commit/${COMMIT_HASH})
 <b>Time Taken: </b><code>$((DIFF / 60)) minute(s) $((DIFF % 60)) second(s)</code>"
 
 				exit -1
