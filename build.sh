@@ -246,8 +246,6 @@ exports() {
 tg_post_msg() {
 	curl -s -X POST "$BOT_MSG_URL" -d chat_id="$CHATID" \
 	-d "disable_web_page_preview=true" \
-        -d sticker="CAACAgIAAxkBAAED3JViAplqY4fom_JEexpe31DcwVZ4ogAC1BAAAiHvsEs7bOVKQsl_OiME" \
-        -d text="Build throw an error(s)"
 	-d "parse_mode=html" \
 	-d text="$1"
 
@@ -289,7 +287,8 @@ tg_send_files(){
 <b>MD5 Checksum</b>
 - <code>$MD5CHECK</code>
 <b>Zip Name</b>
-- <code>$KERNELNAME.zip</code>"
+- <code>$KERNELNAME.zip</code>
+- Hello"
 
         curl --progress-bar -F document=@"$KernelFiles" "https://api.telegram.org/bot$TOKEN/sendDocument" \
         -F chat_id="$CHATID"  \
