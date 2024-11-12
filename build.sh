@@ -396,7 +396,6 @@ build_kernel() {
 <b>Build Date: </b><code>$DATE</code>
 <b>Kernel Name: </b><code>Redux-$VARIANT-$DEVICE</code>
 <b>Linux Tag Version: </b><code>$LINUXVER</code>
-*Last Commit*: [${COMMIT_HASH}](${REPO}/commit/${COMMIT_HASH})
 <b>Time Taken: </b><code>$((DIFF / 60)) minute(s) $((DIFF % 60)) second(s)</code>"
 
 				exit -1
